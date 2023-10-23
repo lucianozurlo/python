@@ -1,0 +1,45 @@
+{% extends "CarDealerApp/base.html" %}
+{% load static %}
+
+{% block title %} CarDealer :: Borrar publicación {% endblock title %}
+
+{% block main %}
+
+        <div class="container mt-5 mb-md-4 py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'Home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'ListadoAutos' %}">Publicaciones</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a class="bread-active">Editar publicación</a>
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="mb-4">
+                        <h1 class="h2 text-light mb-0">Editá tu publicación</h1>
+                    </div>
+                    <section class="card card-light card-body border-0 shadow-sm p-4 mb-4 edit-view">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <h4 style="color: white">Confirmar Eliminación</h4>
+                            <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+
+                            {% if user == object.usuario or user.is_superuser %}
+                            <input type="submit" value="Borrar" class="btn btn-danger btn-lg d-block mt-3 mb-2 mr-1">
+                            <a href="{% url 'ListadoAutos' %}" class="btn btn-secondary btn-lg d-block mt-3 mb-2">Cancelar</a>
+                            {% endif %}
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+{% endblock main %}
+

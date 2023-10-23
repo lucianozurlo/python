@@ -1,0 +1,332 @@
+.no-padding {
+    padding: 0 !important
+}
+#mensaje {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background-color: #3c76f2;
+    color: #fff !important;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 2s;
+    z-index: 1111;
+}
+.oculto {
+    display: none;
+}
+header a.navbar-brand img {
+    padding-right: 10px;
+}
+header .navbar-dark.navbar-stuck {
+    background-color: #1f1b2dd6;
+    backdrop-filter: blur(10px);
+}
+#navbarNav ul.navbar-nav {
+    max-height: 35rem;
+}
+#navbarNav ul.navbar-nav li:first-child {
+    border-left: 1px solid #ffffff26; padding-left: 25px;
+}
+.no-border-right {
+    border-right: 0 !important;
+}
+
+.color-white {
+    color: #fff !important;
+}
+.bg-white {
+    background-color: #fff !important;
+}
+
+.color-red {
+    color: #fd390e !important;
+}
+.bg-red {
+    background-color: #fd390e !important;
+}
+
+.color-green {
+    color: #07c98b !important;
+}
+.bg-green {
+    background-color: #07c98b !important;
+}
+
+.color-blue {
+    color: #3c76f2 !important;
+}
+.bg-blue {
+    background-color: #3c76f2 !important;
+}
+
+.color-orange {
+    color: #fdbc31 !important;
+}
+.bg-orange {
+    background-color: #fdbc31 !important;
+}
+
+img.img-avatar,
+.tns-carousel-inner.img-auto img {
+    object-fit:cover;
+}
+.tns-carousel-inner.img-auto-search img {
+    object-fit:cover;
+    height: 250px;
+    max-height: 250px !important;
+}
+.tns-carousel-inner .img-auto-vendedores  {
+    object-fit: cover;
+    min-height: 130px;
+    height: 130px;
+}
+
+.vendedor .condicion {
+    font-size: 14px !important;
+}
+
+header img.img-avatar {
+    height: 40px !important;
+}
+header img.img-avatarDropdown {
+    height: 48px !important;
+}
+.author img.img-avatar {
+    height: 44px !important;
+}
+.detalle img.img-avatar {
+    height: 54px !important;
+}
+#mi-perfil img.img-avatar,
+.vendedor img.img-avatar {
+    height: 72px !important;
+}
+.detalle img.img-main {
+    width: 100%;
+}
+.detalle .comentarios img.img-avatar {
+    height: 38px !important;
+}
+
+ol.breadcrumb .breadcrumb-item a.bread-active,
+#mi-perfil .card-nav .card-nav-link.active {
+    pointer-events: none !important;
+    color: #fff !important
+}
+
+
+
+.tns-carousel-inner.img-auto img {
+    height: 210px;
+}
+.tns-carousel-wrapper .condicion.bg-info.bg-nuevo {
+    background-color: #3c76f2 !important;
+}
+.tns-carousel-wrapper .condicion.bg-info.bg-usado {
+    background-color: #07c98b !important;
+}
+
+
+#home-search .row div label {
+    border: unset !important;
+    transform: translateY(2px);
+}
+
+#home-search .row div:nth-child(3) label {
+    display: none !important;
+}
+
+#home-search .row div {
+    border-right: 1px solid rgba(255,255,255,.15) !important;
+    padding-left: 20px;
+}
+
+#home-search .row div:nth-child(2) {
+    width: 22%;
+}
+
+#home-search .row div:nth-child(3) {
+    width: 20%;
+}
+
+#home-search .row div:nth-child(4) {
+    width: 26%;
+}
+
+#home-search .row div:nth-child(5) {
+    width: 20%;
+}
+
+#home-search input[type=submit] {
+    width: 12% !important
+}
+
+.btn-sell {
+    padding-bottom: 8px;
+    margin-left: 20px !important
+}
+.btn-sell i {
+   margin-top: 0px !important;
+}
+footer .container {
+    padding-top: 30px;
+    padding-bottom: 30px !important;
+    justify-content: center !important;
+}
+i.fi-map-pin.me-1 {
+    transform: translateY(-1px)
+}
+.border-top-dotted {
+    border-top: 1px dotted #ffffff26 !important;
+}
+
+.like-btn {
+    opacity: .35;
+    transition: .4s;
+    width: unset;
+    height: unset !important;
+    padding: 0 10px;
+    min-height: 26px !important;
+    display: flex !important;
+    align-items: center;
+}
+.like-btn:hover {
+    opacity: 1;
+}
+
+.bg-info {
+    --fi-bg-opacity: 1;
+    background-color: rgba(var(--fi-info-rgb), var(--fi-bg-opacity)) !important;
+    height: 26px;
+    width: fit-content;
+    display: flex !important;
+    align-items: center;
+}
+
+.row.full {
+    --fi-gutter-x: 0;
+    --fi-gutter-y: 0;
+}
+
+.vendedor {
+    display: flex;
+    border-bottom: 1px dotted #ffffff26 !important;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.vendedor:last-child {
+    border-bottom: unset !important
+}
+
+.create-view form label,
+.edit-view form label {
+    color: #fff !important;
+    margin-bottom: 0.375rem;
+    font-size: 1rem;
+    display: inline-block;
+}
+.mi-perfil-form label {
+    color: #fff !important;
+    margin-bottom: 0rem;
+    font-size: 1rem;
+    display: inline-block;
+}
+.edit-view form input,
+.edit-view form a,
+.delete-view form input,
+.delete-view form a {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-right: .25rem;
+}
+
+.edit-view form div {
+    margin-bottom: 1rem !important;
+}
+
+.edit-view form div:nth-child(5),
+.edit-view form div:nth-child(14) {
+    padding-top: 1.5rem !important;
+    margin-top: 2rem !important;
+    border-top: 1px solid #ffffff26 !important
+}
+.edit-view form div:nth-child(6) {
+    text-align: right;
+    margin-right: .5rem;
+}
+.edit-view form div:nth-child(7) {
+    padding-top: 1.5rem !important;
+    margin-top: 1.25rem !important;
+    border-top: 1px solid #ffffff26 !important
+}
+
+.edit-view form input.btn-delete {
+    display: block !important;
+    background: unset;
+    color: #f01b2a;
+}
+
+
+
+/* The container must be positioned relative: */
+.custom-select {
+    position: relative;
+    font-family: Arial;
+}
+    
+    .custom-select select {
+    display: none; /*hide original SELECT element: */
+}
+    
+    .select-selected {
+    background-color: DodgerBlue;
+}
+    
+    /* Style the arrow inside the select element: */
+    .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+    
+    /* Point the arrow upwards when the select box is open (active): */
+    .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+    
+    /* style the items (options), including the selected item: */
+    .select-items div,.select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+}
+    
+    /* Style items (options): */
+    .select-items {
+    position: absolute;
+    background-color: DodgerBlue;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+    
+    /* Hide the items when the select box is closed: */
+    .select-hide {
+    display: none;
+}
+    
+    .select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,115 @@
+{% extends 'CarDealerApp/base.html' %}
+{% load static %}
+
+{% block title %} Vendedores {% endblock title %}
+
+{% block main %}
+
+        <div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+            <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-light">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'Home' %}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="bread-active">Vendedores</a>
+                    </li>
+                </ol>
+            </nav>
+            <div class="pb-1 mb-2">
+                <h1 class="text-light me-3 mb-3">Vendedores</h1>
+                <p class="text-light pt-1">Todas las publicaciones en un solo lugar.</p>
+            </div>
+
+            <div class="row">
+                {% if vendedores %}
+                {% for usuario, publicaciones in vendedores.items %}
+                <div class="vendedor">
+                    <aside class="col-lg-4 col-md-5 pe-xl-4">
+                        <div class="card card-body card-light border-0 shadow-sm me-lg-1"
+                            style="background-color: transparent; border: 1px solid #ffffff26 !important;">
+                            <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-2">
+                                <img class="rounded-circle img-avatar" src="{{ usuario.avatar }}" width="72" alt="{{ usuario.username }} {{ usuario.username }}">
+                                <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
+                                    <h4 class="text-light mt-2 mb-0">{{ usuario.first_name }} {{ usuario.last_name }}</h4>
+                                    <ul class="list-unstyled fs-sm mt-1 mb-0">
+                                        <li>
+                                            <a class="nav-link-light fw-normal" href="mailto:robert_fox@email.com">
+                                                <i class="fi-mail opacity-60 me-2"></i>{{ usuario.first_name }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="col-lg-8 col-md-7">
+
+                        {% if publicaciones %}
+                        <div class="row pt-2">
+                            {% for auto in publicaciones %}
+                            <div class="col-sm-4 mb-4">
+                                <div class="card card-light card-hover h-100">
+                                    <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                                        <a class="img-overlay" href="{% url 'DetalleAuto' auto.id %}"></a>
+                                        <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                                            {% if auto.condicion == 'Usado' %}
+                                            <span class="d-table badge bg-usado bg-info fs-base me-2 condicion">{{ auto.condicion }}</span>
+                                            {% else %}
+                                            <span class="d-table badge bg-nuevo bg-info fs-base me-2 condicion">{{ auto.condicion }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="content-overlay end-0 top-0 pt-3 pe-3">
+                                            {% if user.is_authenticated %}
+                                            <form method="post" action="{% url 'like' auto.id %}">
+                                                {% csrf_token %}
+                                                <button class="btn btn-icon btn-light btn-xs text-primary pb-0 like-btn"
+                                                    style="width: unset; padding: 0 10px;" type="submit" data-bs-toggle="tooltip"
+                                                    data-bs-placement="left">
+                                                    <span class="like-count">{{ auto.likes.count }}</span>
+                                                    <i class="
+                                                    {% if user in auto.likes.all %}
+                                                    fi-heart-filled
+                                                    {% else %}
+                                                    fi-heart
+                                                    {% endif %}
+                                                    " style="margin-left: .2rem;"></i></button>
+                                            </form>
+                                            {% endif %}                                        </div>
+                                        <div class="tns-carousel-inner">
+                                            {% if auto.imagen %}
+                                            <img src="{{ auto.imagen.url }}" class="img-auto-vendedores" alt="Auto">
+                                            {% else %}
+                                            <img src="{% static 'CarDealerApp/img/car-finder/catalog/01.jpg' %}" alt="Auto">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between pb-1">
+                                            <span class="fs-sm text-light me-3">{{ auto.anio }}</span>
+                                        </div>
+                                        <h3 class="h6 mb-1">
+                                            <a class="nav-link-light" href="{% url 'DetalleAuto' auto.id %}">{{ auto.marca }} {{ auto.modelo }}</a></h3>
+                                        <div class="text-primary fw-bold mb-1">$ {{ auto.precio }}</div>
+                                        <div class="fs-sm text-light opacity-70">
+                                            <i class="fi-map-pin me-1" style="transform: translateY(-1px)"></i>{{ auto.localidad }}, {{ auto.provincia }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                        {% else %}
+                        <p>No hay autos cargados.</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No hay autos cargados.</p>
+                {% endif %}
+            </div>
+        </div>
+    
+    {% endblock main %}

@@ -1,0 +1,40 @@
+{% extends 'CarDealerApp/base.html' %}
+{% load static %}
+
+{% block title %} Iniciar sesión {% endblock title %}
+
+{% block main %}
+
+<!-- MAIN -->
+<style>
+    header {
+        display: none !important
+    }
+</style>
+<div class="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
+    <div class="card card-light card-body" style="max-width: 940px">
+        <a class="position-absolute top-0 start-0 nav-link-light fs-sm py-1 px-2 mt-3 ms-3" href="#"
+            onclick="window.history.go(-1); return false;">
+            <i class="fi-arrow-long-left fs-base me-2"></i>Volver</a>
+        <div class="row mx-0 align-items-center">
+            <div class="col-md-6 border-end-md border-light p-2 p-sm-5">
+                <h2 class="h3 text-light mb-4 mb-sm-5">¡Hola de nuevo!</h2>
+                <img class="d-block mx-auto" src="{% static 'CarDealerApp/img/signin-modal/signin-dark.svg' %}" width="344" alt="Illustration">
+                <div class="text-light mt-4 mt-sm-5"><span class="opacity-60">¿No tenés una cuenta? </span>
+                    <a class="text-light" href="{% url 'NuevoUsuario' %}">Registrate acá</a></div>
+            </div>
+            <div class="col-md-6 px-2 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_div }}
+                    <input class="btn btn-primary btn-lg w-100 mt-4" type="submit">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End MAIN -->
+
+{% endblock main %}

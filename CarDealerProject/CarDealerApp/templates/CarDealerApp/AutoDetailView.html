@@ -1,0 +1,180 @@
+{% extends "CarDealerApp/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} CarDealer :: {{ auto.marca }} {{ auto.modelo }} {% endblock title %}
+
+{% block main %}
+
+        <div class="container pt-5 pb-lg-4 my-5">
+            <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-light">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'Home' %}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'ListadoAutos' %}">Publicaciones</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="bread-active">Ver publicación</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="h2 text-light pt-3 pb-3">{{ auto.marca }} {{ auto.modelo }}</h1>
+            <div class="row">
+                <div class="col-lg-8 detalle">
+
+                    <img class="rounded-3 img-main" src="{{ auto.imagen.url }}" alt="Auto">
+
+                    <div class="d-flex align-items-center text-decoration-none border-bottom border-light pt-2 pb-3 mt-3 mb-4"
+                        href="#">
+                        <img class="rounded-circle img-avatar" src="{{ auto.usuario.avatar.avatar.url }}" width="54" alt="{{ auto.usuario.first_name }} {{ auto.usuario.last_name }}">
+                        <div class="ps-2">
+                            <h4 class="fs-lg text-light lh-base mb-0">{{ auto.usuario.first_name }} {{ auto.usuario.last_name }}</h4>
+                            <div class="d-flex fs-sm text-light opacity-70">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt opacity-70 mt-n1 me-1 align-middle"></i>
+                                    {{ auto.fecha_creacion }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="fs-base fw-bold text-light mb-4">{{ auto.descripcion }}</p>
+                    <p class="fs-sm text-light opacity-70">{{ auto.cuerpo }}</p>
+
+                    {% if user.is_authenticated %}
+                    <div class="fs-sm mb-4 mb-md-5 mt-5 pt-4 border-top-dotted comentarios" id="comments">
+                        <h4 class="text-light mb-4 pb-2">Comentarios</h4>
+                        {% for comentario in comentarios %}
+                        <div class="mb-4">
+                            <p class="text-light opacity-70">{{ comentario.texto }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center pe-2">
+                                    <img class="rounded-circle me-1 img-avatar" src="{{ comentario.autor.avatar.avatar.url }}"
+                                    width="38" alt="{{ comentario.autor.first_name }} {{ comentario.autor.last_name }}">
+                                    <div class="ps-2">
+                                        <h6 class="text-light fs-sm mb-0">{{ comentario.autor.first_name }} {{ comentario.autor.last_name }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="mb-4">
+                            <p class="text-light opacity-70">No hay comentarios aún.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <h6 class="text-light mb-4 pb-sm-2">Deja tus comentarios:</h6>
+                    <form method="post" action="{% url 'NuevoComentario' auto.id %}" class="needs-validation row gy-md-4 gy-3 pb-sm-2" novalidate>
+                    {% csrf_token %}
+
+                        <div class="col-12">
+                            <textarea name="texto" class="form-control form-control-light form-control-lg" id="comment-text" rows="4"
+                                placeholder="Escribí acá..." required></textarea>
+                            <div class="invalid-feedback">Escribí acá...</div>
+                        </div>
+                        <div class="col-12 py-2">
+                            <button class="btn btn-lg btn-primary" type="submit">Comentar</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <p>Debes iniciar sesión para dejar un comentario.</p>
+                    {% endif %}
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="offcanvas-lg offcanvas-end bg-dark" id="blog-sidebar">
+                        <div class="offcanvas-header bg-transparent border-bottom border-light">
+                            <h2 class="h5 text-light mb-0">Más información</h2>
+                            <button class="btn-close btn-close-white" type="button" data-bs-dismiss="offcanvas"
+                                data-bs-target="#blog-sidebar"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="card card-flush bg-transparent border-light">
+                                <div class="card-body">
+
+                                    <div class="d-flex align-items-start border-bottom border-light pb-3 mb-4">
+                                        <div class="d-flex d-md-block pt-1" style="width: 100%">
+
+                                            <div class="d-flex aside-top d-flex" style="width: 100%; justify-content: space-between;">
+
+                                                <div class="d-flex mb-4">
+                                                    {% if auto.condicion == 'Usado' %}
+                                                    <span class="badge bg-usado bg-info fs-base me-2 condicion">{{ auto.condicion }}</span>
+                                                    {% else %}
+                                                    <span class="badge bg-nuevo bg-info fs-base me-2 condicion">{{ auto.condicion }}</span>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="content-overlay end-0 top-0">
+                                                    {% if user.is_authenticated %}
+                                                    <form method="post" action="{% url 'like' auto.id %}">
+                                                        {% csrf_token %}
+                                                        <button class="btn btn-icon btn-light btn-xs text-primary pb-0 like-btn"
+                                                            style="width: unset; padding: 0 10px;" type="submit" data-bs-toggle="tooltip"
+                                                            data-bs-placement="left">
+                                                            <span class="like-count">{{ auto.likes.count }}</span>
+                                                            <i class="
+                                                            {% if user in auto.likes.all %}
+                                                            fi-heart-filled
+                                                            {% else %}
+                                                            fi-heart
+                                                            {% endif %}
+                                                            " style="margin-left: .2rem;"></i></button>
+                                                    </form>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <div class="h3 text-light mb-0">$ {{ auto.precio|intcomma }}</div>
+                                                {% if auto.precioNegociable == 0 %}
+                                                <div class="fs-xs color-red">No negociable</div>
+                                                {% else %}
+                                                <div class="fs-xs color-green">Negociable</div>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="d-flex text-light mb-2">
+                                                <div>
+                                                    <div class="text-nowrap border-end border-light pe-3 me-3 no-border-right"><i
+                                                        class="fi-dashboard fs-lg opacity-70 me-2"></i><span
+                                                        class="align-middle">{{ auto.km|intcomma }} km</span></div>
+                                                    <div class="text-nowrap">
+                                                        <i class="fi-map-pin fs-lg opacity-70 me-2"></i>
+                                                        <span class="align-middle">{{ auto.localidad }}, {{ auto.provincia }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="fs-sm pb-0 mb-0">
+                                        <p class="text-light mb-4"><strong>Más información:</strong></p>
+                                        <ul class="color-white mb-0">
+                                            <li class="mb-2"><strong>Modelo:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.anio }}</span></li>
+                                            <li class="mb-2"><strong>Tipo:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.tipo }}</span></li></li>
+                                            <li class="mb-2"><strong>Motor:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.motor }}</span></li>
+                                            <li class="mb-2"><strong>Transmisión:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.transmision }}</span></li>
+                                            <li class="mb-2"><strong>Combustible:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.combustible }}</span></li>
+                                            <li class="mb-2"><strong>Color:</strong><br>
+                                                <span class="opacity-70 ms-1">{{ auto.color }}</span></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+{% endblock main %}

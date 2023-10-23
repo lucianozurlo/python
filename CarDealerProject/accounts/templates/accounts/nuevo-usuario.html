@@ -1,0 +1,47 @@
+{% extends 'CarDealerApp/base.html' %}
+{% load static %}
+
+{% block title %} Nuevo usuario {% endblock title %}
+
+{% block main %}
+        <!-- MAIN -->
+        <style>
+            header {
+                display: none !important
+            }
+        </style>
+        <div class="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
+            <div class="card card-light card-body" style="max-width: 940px"><a
+                    class="position-absolute top-0 start-0 nav-link-light fs-sm py-1 px-2 mt-3 ms-3" href="#"
+                    onclick="window.history.go(-1); return false;"><i
+                        class="fi-arrow-long-left fs-base me-2"></i>Volver</a>
+                <div class="row mx-0 align-items-center">
+                    <div class="col-md-6 border-end-md border-light p-2 p-sm-5">
+                        <h2 class="h3 text-light mb-4 mb-sm-5">¡Sumate a CarDealer!</h2>
+                        <ul class="list-unstyled mb-4 mb-sm-5">
+                            <li class="d-flex mb-2"><i class="fi-check-circle text-primary mt-1 me-2"></i><span
+                                    class="text-light">Publicá tus autos</span></li>
+                            <li class="d-flex mb-2"><i class="fi-check-circle text-primary mt-1 me-2"></i><span
+                                    class="text-light">Gestiona fácilmente tu lista</span></li>
+                            <li class="d-flex mb-0"><i class="fi-check-circle text-primary mt-1 me-2"></i><span
+                                    class="text-light">Dejá y recibí comentarios</span></li>
+                        </ul><img class="d-block mx-auto" src="{% static 'CarDealerApp/img/signin-modal/signup-dark.svg' %}" width="344"
+                            alt="Illustartion">
+                        <div class="text-light mt-sm-4 pt-md-3"><span class="opacity-60">¿Ya tenés una cuenta?
+                            </span><a class="text-light" href="{% url 'IniciarSesion' %}">Iniciá sesión acá</a></div>
+                    </div>
+                    <div class="col-md-6 px-2 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_div }}
+                            <input class="btn btn-primary btn-lg w-100 mt-3" type="submit" value="Registrarme">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End MAIN -->
+
+{% endblock main %}

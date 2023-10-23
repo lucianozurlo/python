@@ -1,0 +1,38 @@
+{% extends "CarDealerApp/base.html" %}
+{% load static %}
+
+{% block title %} CarDealer :: Crear publicación {% endblock title %}
+
+{% block main %}
+
+        <div class="container mt-5 mb-md-4 py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'Home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'ListadoAutos' %}">Publicaciones</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a class="bread-active">Crear publicación</a>
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="mb-4">
+                        <h1 class="h2 text-light mb-0">Creá tu publicación</h1>
+                    </div>
+                    <section class="card card-light card-body border-0 shadow-sm p-4 mb-4 create-view">
+                        <form id="aaa" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_div }}
+                            <input type="submit" value="Publicar" class="btn btn-primary btn-lg d-block mt-5 mb-2">
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+{% endblock main %}

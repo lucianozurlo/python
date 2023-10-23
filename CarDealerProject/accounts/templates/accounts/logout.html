@@ -1,0 +1,47 @@
+{% extends "CarDealerApp/base.html" %}
+{% load static %}
+
+{% block title %} CarDealer :: Cerrar sesión {% endblock title %}
+
+{% block main %}
+
+
+
+        <!-- MAIN -->
+        <div class="container mt-5 mb-md-4 py-5">
+            <div class="row">
+                <!-- Page content-->
+                <div class="col-lg-8">
+                    <!-- Breadcrumb-->
+                    <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                        <ol class="breadcrumb breadcrumb-light">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'Home' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a class="bread-active">Cerrar sesión</a>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <!-- Basic info-->
+                    <section class="card card-light card-body border-0 shadow-sm p-4 mb-4 edit-view">
+
+                        <h4 class="color-white">Cerrando sesión</h4>
+                        <p class="mb-0">Redirigiendo...</p>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+<!-- End MAIN -->
+
+{% endblock main %}
+
+{% block js %}
+<script>
+    setTimeout(function() {
+        window.location.href = "{% url 'Home' %}";
+    }, 2000);
+</script>
+{% endblock js %}

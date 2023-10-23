@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+# Archivos de pipenv. Queda requirements.txt
+Pipfile
+Pipfile.lock
+
+# Carpeta con migraciones
+migrations/
+
+# Archivos ocultos de macOS
+.DS_Store

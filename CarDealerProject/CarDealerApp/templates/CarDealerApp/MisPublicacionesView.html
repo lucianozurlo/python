@@ -1,0 +1,137 @@
+{% extends 'CarDealerApp/base.html' %}
+{% load static %}
+
+{% block title %} Mi contraseña {% endblock title %}
+
+{% block main %}
+
+        <div class="container pt-5 pb-lg-4 mt-5 mb-sm-2">
+            <nav class="mb-3 pb-md-1 pt-md-3" aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-light">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'Home' %}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'MiPerfil' %}">Mi perfil</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="bread-active">Mis publicaciones</a>
+                    </li>
+                </ol>
+            </nav>
+            <div class="row">
+                <aside class="col-lg-4 col-md-5 pe-xl-4 mb-5">
+                    <div id="mi-perfil" class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
+                        <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-2">
+                            <img class="rounded-circle img-avatar" src="{{ user.avatar }}" width="72" alt="{{ user.first_name }} {{ user.last_name }}">
+                            <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
+                                <h4 class="text-light mt-2 mb-0">{{ user.first_name }} {{ user.last_name }}</h4>
+                                <ul class="list-unstyled fs-sm mt-1 mb-0">
+                                    <li>
+                                        <a class="nav-link-light fw-normal" href="mailto:{{ user.email }}">
+                                            <i class="fi-mail opacity-60 me-2"></i>{{ user.email }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-light d-block d-md-none w-100 mb-3" href="#account-nav"
+                            data-bs-toggle="collapse">
+                            <i class="fi-align-justify me-2"></i>Menu</a>
+                        <div class="collapse d-md-block mt-3" id="account-nav">
+                            <div class="card-nav">
+                                <a class="card-nav-link" href="{% url 'MiPerfil' %}">
+                                    <i class="fi-user me-2"></i>Mi perfil</a>
+                                <a class="card-nav-link" href="{% url 'MiContrasena' %}">
+                                    <i class="fi-lock me-2"></i>Mi contraseña</a>
+                                <a class="card-nav-link active">
+                                    <i class="fi-car me-2"></i>Mis publicaciones</a>
+                                <a class="card-nav-link" href="{% url 'CerrarSesion' %}">
+                                    <i class="fi-logout me-2"></i>Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="col-lg-8 col-md-7 mb-5">
+                    <h1 class="h2 text-light">Mis publicaciones</h1>
+                    <p class="text-light pt-1">Acá podrás ver las ofertas de tus autos y editarlas fácilmente.</p>
+                    {% if mis_publicaciones %}
+                    <div class="row full pt-2">
+                        {% for auto in mis_publicaciones %}
+                        <div class="card card-light card-hover card-horizontal mb-4">
+                            <div class="tns-carousel-wrapper card-img-top card-img-hover">
+                                <a class="img-overlay" 
+                                {% if user.is_authenticated %}href="{% url 'DetalleAuto' auto.id %}"{% endif %}>
+                                </a>
+        
+                                <div class="position-absolute start-0 top-0 pt-3 ps-3">
+                                    {% if auto.condicion == 'Usado' %}
+                                    <span class="d-table badge bg-usado bg-info condicion">{{ auto.condicion }}</span>
+                                    {% else %}
+                                    <span class="d-table badge bg-nuevo bg-info condicion">{{ auto.condicion }}</span>
+                                    {% endif %}
+                                </div>
+        
+                                <div class="tns-carousel-inner img-auto-search">
+                                    {% if auto.imagen %}
+                                    <img src="{{ auto.imagen.url }}" alt="Auto">
+                                    {% else %}
+                                    <img src="{% static '/media/autos/generic_car.jpg' %}" alt="Auto">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% if user.is_authenticated %}
+                                {% if user == auto.usuario or user.is_superuser %}
+                                <div class="dropdown position-absolute zindex-5 end-0 mt-0 me-3">
+                                    <button class="btn btn-icon btn-translucent-light btn-xs rounded-circle pb-0"
+                                        type="button" id="contextMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fi-dots-vertical"></i></button>
+                                        <ul class="dropdown-menu dropdown-menu-dark my-1" aria-labelledby="contextMenu1">
+                                            <li><a href="{% url 'EditarPublicacion' auto.id %}" class="dropdown-item">
+                                                <i class="fi-edit me-2"></i>Editar</a></li>
+                                            <li><a href="{% url 'BorrarPublicacion' auto.id %}" class="dropdown-item">
+                                                <i class="fi-trash me-2"></i>Borrar</a></li>
+                                        </ul>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                                <div class="d-flex align-items-center justify-content-between pb-1"><span
+                                        class="fs-sm text-light me-3">{{ auto.anio }}</span>
+                                </div>
+                                <h3 class="h6 mb-1"><a class="nav-link-light" href="{% url 'DetalleAuto' auto.id %}">{{ auto.marca }} {{ auto.modelo }}</a></h3>
+                                <div class="text-primary fw-bold mb-1">$ {{ auto.precio }}</div>
+                                <div class="fs-sm text-light opacity-70"><i class="fi-map-pin me-1"></i>{{ auto.localidad }}, {{ auto.provincia }}</div>
+        
+                                <div class="border-top border-light mt-3 pt-3">
+                                    <div class="row g-2">
+                                        <div class="col me-sm-1">
+                                            <div class="bg-dark rounded text-center w-100 h-100 p-2"><i
+                                                    class="fi-dashboard d-block h4 text-light mb-0 mx-center"></i><span
+                                                    class="fs-xs text-light">{{ auto.km }} km</span></div>
+                                        </div>
+                                        <div class="col me-sm-1">
+                                            <div class="bg-dark rounded text-center w-100 h-100 p-2"><i
+                                                    class="fi-gearbox d-block h4 text-light mb-0 mx-center"></i><span
+                                                    class="fs-xs text-light">{{ auto.transmision }}</span></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="bg-dark rounded text-center w-100 h-100 p-2"><i
+                                                    class="fi-petrol d-block h4 text-light mb-0 mx-center"></i><span
+                                                    class="fs-xs text-light">{{ auto.combustible }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>{{ mensaje }}</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+{% endblock main %}
